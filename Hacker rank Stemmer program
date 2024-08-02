@@ -1,0 +1,47 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+
+
+#
+# Complete the 'stemmer' function below.
+#
+# The function is expected to return a STRING.
+# The function accepts STRING text as parameter.
+#
+
+def stemmer(text):
+    # Write your code here
+    suffixes = ['ed','ly','ing']
+    
+    def stem_word(word):
+        
+        for suffix in suffixes:
+            if word.endswith(suffix):
+                word = word[:-len(suffix)]
+                
+                break
+        
+        
+        if len(word) >8:
+            word = word[:8]
+        return word
+        
+    stemmed_words = [stem_word(word) for word in text.split()]
+    return ' '.join(stemmed_words)
+        
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    text = input()
+
+    result = stemmer(text)
+
+    fptr.write(result + '\n')
+
+    fptr.close()
